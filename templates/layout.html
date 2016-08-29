@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>{% block title %}Gayan's Blog{% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	</head>
+
+	<body>
+
+		<div class='container'>
+			<div class='row'>
+				<div class='col-md-12 text-center'>
+					<h1 class='u text-danger thumbnail panel panel-primary'>{% block header %}Gayan's Blog{% endblock %}</h1>
+					<hr>
+				</div>
+			</div>
+
+			{% block body %} 
+				
+			{% endblock %}
+
+			{% block footer %}
+			<div class='row'>
+				<div class='col-md-12 thumbnail navbar-fixed-bottom text-center' style="margin: 0;">
+					<h5>{% block footer_text %}Thank you for visiting. Created with Flask & Python {% endblock %}</h5>
+				</div>
+			</div>
+			{% endblock %}
+		</div>
+	</body>
+<html>

@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Comment - {{ super() }} {% endblock %}
+
+{% block header %}Comment - {{ super() }} {% endblock %}
+
+{% block body %}
+
+	<script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery.min.js') }}">
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('#post').on('click', function(e)
+			{
+
+				e.preventDefault();
+				var name = $('#name').val()
+				var comment = $('#comment').val()
+				$.ajax
+				({
+						url: 'post/',
+						type: 'post',
+						data: {'name': name, 'comment':comment},
+						success: function(response, status)
+						{
+							if (response == 'ok')
+							{
+								location.href = '../../';
+							}
+							else
+							{
+								location.href = '#';
+							}
+						}
+				});
+			});
+		});
+	</script>
+
+  <div class='row'>
+    <div class='col-md-12'>
+      <p class='u text-center text-primary h3'>{{data.title}}</p>
+      <p>{{data.entry}}</p>
+      <hr>
+    </div>
+  </div>
+
+	<div class='row'>
+		<div class='col-md-12'>
+			<button class='btn btn-primary pull-left' id='cancel'>Cancel</button>
+			<button class='btn btn-primary pull-right' id='post'>Post Comment</button>
+			<br>
+			<br>
+		</div>
+	</div>
+
+	<div class='row'>
+		<div class='col-md-12 thumbnail'>
+			<form class='form'>
+				<input type='text' id='name' value="" class='form-control' placeholder='Your Name'>
+				<br>
+				<textarea class='form-control' rows='15' id='comment' placeholder='Comment'></textarea>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

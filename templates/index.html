@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+	{% block header %} Welcome! {{super()}} {% endblock %}
+	{% block body %}
+
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					<div class='row'>
+						<div class='col-md-12'>
+							{% for message in messages %}
+								<p class='text-danger'>{{ message }}</p>
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+			{% endwith %}
+
+
+			<div class='row'>
+				<div class='col-md-2'>
+					<div class='thumbnail panel panel-primary'>
+					    <p class='text-center'><u><b>Most Popular Articles</u></b></p>
+						<ol>
+							{% for item in recent %}
+								<li>
+									<a href="a/{{ item.pid }}/">{{ item.title }}</a>
+								</li>
+							{% endfor %}
+						</ol>
+					</div>
+
+					{% if admin %}
+						<br>
+						<div class='panel panel-primary thumbnail'>
+							<u><b><p class='text-center'>Admin Panel</p></u></b>
+							<ul>
+								<li> <a href="new/">New Article</a> </li>
+								<li> <a href="edit/">Edit Articles</a> </li>
+								<li> <a href="feedback/view/">View Feedbacks</a> </li>
+								<li> <a href="logout/">Logout</a> </li>
+							</ul>
+						</div>
+					{% else %}
+						<br>
+						<div class='panel panel-primary thumbnail'>
+							<u><b><p class='text-center'>Members Area</p></u></b>
+							<ul>
+								<li> <a href="feedback/">Feedback</a> </li>
+								<li> <a href="login/">Login</a> </li>
+							</ul>
+						</div>
+					{% endif %}
+				</div>
+
+				<div class='col-md-9 col-md-offset-1 thumbnail' style='margin-bottom:96px'>
+					{% for row in post %}
+						<p>
+							<h2 class='text-center text-primary'>
+							<a href="a/{{ row.pid }}/">{{ row.title }}</a>
+							</h2>
+						</p>
+						<p>
+							{{ row.entry|safe }}
+							
+							
+						</p>
+						
+						<div style='background-color:#DDDDDD;'>
+							<a href="comment/view/{{ row.pid }}/">{{ row.cc }} Comments</a>&nbsp;&#x26AB;&nbsp;
+							<a href="comment/{{row.pid}}/">Post Comment</a>
+							&nbsp;&#x26AB;
+							<span class='text-information'>{{ row.hits }} Article Views</span>
+							<a href="a/{{ row.pid }}/" class='pull-right' style='margin-right:12px'>Read more</a>
+						</div>
+						<hr>
+					{% endfor %}
+				</div>
+				<hr>
+			</div>
+		{{ super() }}
+	{% endblock %}

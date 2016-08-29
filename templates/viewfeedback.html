@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %} Feedbacks - {{ super() }} {% endblock %}
+
+{% block header %}  User Feedbacks{% endblock %}
+
+{% block body %} 
+	{% for feedback in feedbacks %}
+		<div class='row'>
+			<div class='col-md-12 thumbnail panel'>
+				<p><b>Name:</b> {{ feedback.name }}</p>
+				<p><b>Email:</b> {{ feedback.email }}</p>
+				<p><b><u>Feedback</b></u></p>
+				<p> {{ feedback.feedback }}</p>
+				<hr>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock%}

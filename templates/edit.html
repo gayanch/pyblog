@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Article - {{ super() }} {% endblock %}
+
+{% block header %}Edit Article - {{ super() }} {% endblock %}
+
+{% block body %}
+
+	<script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery.min.js') }}">
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('#update').on('click', function(e)
+			{
+
+				e.preventDefault();
+				var title = $('#title').val()
+				var entry = $('#body').val()
+				$.ajax
+				({
+						url: 'post/',
+						type: 'post',
+						data: {'title': title, 'entry':entry},
+						success: function(response, status)
+						{
+							if (response == 'ok')
+							{
+								location.href = '../../';
+							}
+							else
+							{
+								location.href = '#';
+							}
+						}
+				});
+			});
+		});
+	</script>
+
+	<div class='row'>
+		<div class='col-md-12'>
+			<button class='btn btn-primary pull-left' id='cancel'>Cancel</button>
+			<button class='btn btn-primary pull-right' id='update'>Update</button>
+			<br>
+			<br>
+		</div>
+	</div>
+
+	<div class='row'>
+		<div class='col-md-12 thumbnail'>
+			<form class='form'>
+				<input type='text' id='title' value="{{ data.title|safe }}" class='form-control' placeholder='Article Title'>
+				<br>
+				<textarea class='form-control' rows='15' id='body' placeholder='Article Body'>{{ data.entry|safe }}</textarea>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

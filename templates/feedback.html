@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}Feedback - {{ super() }} {% endblock %}
+
+{% block header %} Your Feedback {% endblock %}
+
+{% block body %}
+
+	<script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+
+	<script type="text/javascript">
+			$(document).ready(function()
+			{
+				$('#submit').on('click', function(e)
+				{
+					e.preventDefault();
+					name = $('#name').val();
+					email = $('#email').val();
+					feedback = $('#feedback').val();
+
+					if (name =='' || email == '' || feedback == '')
+					{
+						alert('All Fields are required');
+					} else
+					{
+						$.ajax(
+						{
+							url: 'submit/',
+							type: 'post',
+							data: {'name': name, 'email': email, 'feedback': feedback},
+							success: function(response, status)
+							{
+								location.href = '../';
+							}
+						})
+					}
+				});
+			});
+	</script>
+
+
+	<div class='row'>
+		<div class='col-md-12'>
+			<button class='btn btn-primary pull-left' id='cancel'>Cancel</button>
+			<button class='btn btn-primary pull-right' id='submit'>Submit</button>
+			<br>
+			<br>
+		</div>
+	</div>
+
+	<div class='row'>
+		<div class='col-md-12 thumbnail'>
+			<form class='form'>
+				<input type='text' id='name' class='form-control' placeholder='Your Name'>
+				<br>
+				<input type='text' id='email' class='form-control' placeholder='Your Email'> 
+				<br>
+				<textarea class='form-control' rows='15' id='feedback' placeholder='Give us a Feedback here :)'></textarea>
+			</form>
+		</div>
+	</div>
+{% endblock %}

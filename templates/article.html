@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}Article - {{ super() }}{% endblock %}
+
+{% block header %} View Article - {{ super() }} {% endblock %}
+
+{% block body %}
+    <div class='row'>
+        <div class='col-md-12 text-center'>
+            <h2 class='text-primary'><u>{{ title|safe }}</u></h2>
+            <hr>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='col-md-12'>
+            {{ entry|safe }}
+        </div>
+        <hr>
+    </div>
+
+    {% if comments %}
+      <div class='row'>
+        <div class='col-md-12 thumbnail panel'>
+          <p class='h3 u'>Comments</p>
+          <hr>
+            {% for comment in comments %}
+              <p><b><u>{{ comment.name }}</b></u></p>
+              <p>{{ comment.comment }}</p>
+              <hr>
+            {% endfor %}
+          <div>
+      </div>
+    {% endif %}
+{% endblock %}

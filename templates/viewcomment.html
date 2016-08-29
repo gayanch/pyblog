@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}View Comment - {{ super() }} {% endblock %}
+
+{% block header %}View Comments - {{ super() }} {% endblock %}
+
+{% block body %}
+
+  <div class='row'>
+    <div class='col-md-12'>
+      <p class='u text-center text-primary h3'>{{data.title|safe}}</p>
+      <p>{{data.entry|safe}}</p>
+      <hr>
+    </div>
+  </div>
+
+	{% if comments %}
+    <div class='row'>
+      <div class='col-md-12 thumbnail panel'>
+        {% for comment in comments %}
+          <p>
+            <u><b>{{ comment.name }}</u></b>
+            <br>
+            {{ comment.comment }}
+          </p>
+          <hr>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <h2>No Comments on This Post</h2>
+  {% endif %}
+
+{% endblock %}

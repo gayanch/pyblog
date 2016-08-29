@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<title>New Article</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	</head>
+
+	<body>
+		<script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+		<script type="text/javascript">
+			$(document).ready(function()
+			{
+				$('#post').on('click', function(e)
+				{
+					e.preventDefault();
+					title = $('#title').val();
+					body = $('#body').val();
+
+					if (title =='' || body == '')
+					{
+						alert('Insuficient Data');
+					} else
+					{
+						$.ajax(
+						{
+							url: 'post/',
+							type: 'post',
+							data: {'title': title, 'body': body},
+							success: function(response, status)
+							{
+								alert(response);
+							}
+						})
+					}
+				});
+			});
+		</script>
+
+		<div class='container'>
+			<div class='row'>
+				<div class='col-md-12'>
+					<h1 class='thumbnail text-primary'>New Article</h1>
+					<hr>
+				</div>
+			</div>
+
+			<div class='row'>
+				<div class='col-md-12'>
+					<span class='pull-left'>
+						<button class='btn btn-primary' id='cancel'>Cancel</button>
+					</span>
+
+					<span class='pull-right'>
+						<button class='btn btn-primary' id='post'>Post</button>
+					</span>
+					<br>
+					<br>
+				</div>
+			</div>
+
+			<div class='row'>
+				<div class='col-md-12'>
+					<form class='form thumbnail'>
+						<input type='text' class='form-control' placeholder='Article Title' id='title'>
+						<br>
+						<textarea rows="15" class='form-control' placeholder='Article Body' id='body'></textarea>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}Login - {{ super() }} {% endblock %}
+
+{% block header %} Login - {{ super() }} {% endblock %}
+
+{% block body %}
+
+	<script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('#login').on('click', function(e)
+			{
+				//e.preventDefault();
+				username = $('#username').val();
+				password = $('#password').val();
+
+				if (username == '' || password == '')
+				{
+					alert('Invalid login');
+				} else
+				{
+					$.ajax(
+					{
+						url: 'auth/',
+						type: 'post',
+						data: {'username': username, 'password': password},
+						success: function(response, status)
+						{
+							if (response == 'Ok')
+							{
+								location.href = '../';
+							}	else
+							{
+								location.href = '#';
+							}
+						}
+					});
+				}
+			});
+		});
+	</script>
+
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		<div class='row'>
+			<div class='col-md-12'>
+				<span class='text-center text-danger'>
+					{% for message in messages%}
+						{{ message }}
+						<br>
+					{% endfor %}
+				</span>
+			</div>
+		</div>
+	{% endif %}
+{% endwith %}
+
+	<div class='row'>
+		<div class='col-md-4 col-md-offset-4 thumbnail panel'>
+			<form class='form'>
+				<input type='text' id='username' class='form-control' placeholder='Username'>
+				<br>
+				<input type='password' id='password' class='form-control' placeholder='Password'>
+				<br>
+				<button class='btn btn-primary pull-right' id='login'>Login</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block footer %}
+	
+{% endblock %}
